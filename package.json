@@ -1,6 +1,6 @@
 {
   "name": "seedclient",
-  "serverURL": "http://localhost:8084/seedMaven/",
+  "serverURL": "https://www.g3ralt.club/seedMaven-1.0-SNAPSHOT/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
