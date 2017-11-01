@@ -42,7 +42,6 @@ class AuthenticationHandler {
     if (!sessionStorage.token) {
       return;
     }
-    console.log("Initializing Data From Token");
     this._token = sessionStorage.token;
     var decoded = jwtDecode(this._token);
     this._userName = decoded.username;
@@ -120,10 +119,15 @@ class AuthenticationHandler {
 
   register = (username, password, cb) => {
     this._errorMessage = "";
+    if (this._token != null) {
+      this._userWasLoggenIn(cb);
+    }
+
     var user = { username, password };
+    
 
     var options = {
-      method: "POST",
+      method: "PUT",
       body: JSON.stringify(user),
       headers: new Headers({
         'Content-Type': 'application/json'

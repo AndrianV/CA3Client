@@ -20,13 +20,13 @@ class TopMenu extends Component {
   render() {
 
     const logInStatus = this.state.loggedIn ? "Logged in as: " + this.state.userName : "";
-    //console.log("RENDERING - REMOVE ME",JSON.stringify(this.state));
+    console.log("RENDERING - REMOVE ME",JSON.stringify(this.state));
     return (
       <div>
         <nav className="navbar navbar-default" >
           <div className="container-fluid">
             <div className="navbar-header">
-              <a className="navbar-brand" href="/" style={{pointerEvents: "none"}}>Semester Seed</a>
+              <Link to="/" className="navbar-brand">Semester Seed</Link>
             </div>
             <ul className="nav navbar-nav">
               <li><Link to="/about">About</Link></li>

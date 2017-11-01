@@ -39,20 +39,21 @@ function makeErrorMsg(data,fallBackMessage){
   * @param {*} method POST,GET,DELETE, etc.
 */
 export const errorChecker = function(res,data){
-  if(res.status === 200 && res.ok){
+  if( (res.status === 200 && res.ok) || res.status ===201 ){
     return;
   }
   if (res.status === 400) {
     throw new Error(makeErrorMsg(data,"Server could not handle the Request"));
   }
-  if (res.status === 401 || res.status === 403) {
+  if (res.status === 401) {
     const msg = makeErrorMsg(data,"Sorry, you could not be authenticated");
     throw new Error(msg);
   }
   if (res.status === 403) {
-    
+    const msg = makeErrorMsg(data,"Sorry, you cannot be registered now, try later, please");
+    throw new Error(msg);
   }
-  if (res.status > 200 || !res.ok) {
+  if (res.status > 201 || !res.ok) {
     throw new Error(makeErrorMsg(data,"Sorry, you could not be authenticated"));
   }
 }

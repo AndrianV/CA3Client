@@ -1,5 +1,6 @@
-import React from "react"
-import {Route, Switch } from "react-router-dom"
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import Welcome from './Welcome';
 import Login from "./Login";
 import Logout from "./Logout";
 import Register from "./Register";
@@ -14,6 +15,7 @@ function App() {
     <div>
       <TopMenu />
       <Switch>
+        <Route exact path="/" component={Welcome} />
         <Route path="/login" component={Login} />
         <Route path="/logout" component={Logout} />
         <Route path="/register" component={Register} />
