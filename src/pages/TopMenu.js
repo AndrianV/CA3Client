@@ -10,7 +10,7 @@ class TopMenu extends Component {
   }
 
   loginStatus = (status,userName,isUser,isAdmin) =>{
-    this.setState({loggedIn: status, userName,isUser,isAdmin});
+    this.setState({loggedIn: status, userName: userName, isUser: isUser, isAdmin: isAdmin});
   }
 
   componentDidMount(){
@@ -30,8 +30,8 @@ class TopMenu extends Component {
             </div>
             <ul className="nav navbar-nav">
               <li><Link to="/about">About</Link></li>
-              <li><Link to="/user">Page for Users </Link></li>
-              <li><Link to="/admin">Page for Admins</Link></li>
+              {this.state.isUser && (<li><Link to="/user">Page for Users </Link></li>) }
+              {this.state.isAdmin && (<li><Link to="/admin">Page for Admins</Link></li>) }
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li className="navbar-text" style={{ color: "steelBlue" }}>{logInStatus}</li>
@@ -45,6 +45,7 @@ class TopMenu extends Component {
                       <span className="glyphicon glyphicon-log-out"></span> Login </Link>
                   )}
               </li>
+              {!this.state.loggedIn && (<li><Link to="/register"><span className="glyphicon glyphicon-pushpin"></span> Register</Link></li>) }
             </ul>
           </div>
         </nav>

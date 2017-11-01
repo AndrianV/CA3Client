@@ -2,6 +2,7 @@ import React from "react"
 import {Route, Switch } from "react-router-dom"
 import Login from "./Login";
 import Logout from "./Logout";
+import Register from "./Register";
 import About from "./About";
 import UserPage from "./UserPage";
 import AdminPage from "./AdminPage";
@@ -15,6 +16,7 @@ function App() {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/logout" component={Logout} />
+        <Route path="/register" component={Register} />
         <Route path="/about" component={About} />
         <Route path="/user" component={UserPage} />
         <Route path="/admin" component={AdminPage} />

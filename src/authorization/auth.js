@@ -67,7 +67,7 @@ class AuthenticationHandler {
     this._isUser = false;
     this._errorMessage = "";
     if (this._loginObserver) {
-      this._loginObserver(false, this._userName,this._isUser,this._isAdmin);
+      this._loginObserver(false, this._userName, this._isUser, this._isAdmin);
     }
   }
 
@@ -75,7 +75,7 @@ class AuthenticationHandler {
     if (cb) {
       cb(null, true);
       if (this._loginObserver) {
-        this._loginObserver(true, this._userName,this._isUser,this._isAdmin);
+        this._loginObserver(true, this._userName, this._isUser, this._isAdmin);
       }
       return;
     }
@@ -96,7 +96,7 @@ class AuthenticationHandler {
         'Content-Type': 'application/json'
       })
     }
-    let resFromFirstPromise=null;  //Pass on response the "second" promise so we can read errors from server
+    let resFromFirstPromise = null;  //Pass on response the "second" promise so we can read errors from server
     fetch(URL + "api/login", options)
       .then(res => {
         resFromFirstPromise = res;
@@ -117,6 +117,42 @@ class AuthenticationHandler {
       })
     return;
   }
+
+  register = (username, password, cb) => {
+    this._errorMessage = "";
+    var user = { username, password };
+
+    var options = {
+      method: "POST",
+      body: JSON.stringify(user),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    }
+
+    let resFromFirstPromise = null;  //Pass on response the "second" promise so we can read errors from server
+    fetch(URL + "api/register", options)
+      .then(res => {
+        resFromFirstPromise = res;
+        return res.json();
+      })
+      .then(data => {
+        errorChecker(resFromFirstPromise, data);
+        this.setToken(data.token);
+        if (this._token != null) {
+          this._userWasLoggenIn(cb);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        if (cb) {
+          cb({ errorMessage: fetchHelper.addJustErrorMessage(err) });
+        }
+      })
+    return;
+  }
+
+
 }
 
 var auth = new AuthenticationHandler();
