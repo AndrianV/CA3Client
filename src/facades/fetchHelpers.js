@@ -39,7 +39,7 @@ function makeErrorMsg(data,fallBackMessage){
   * @param {*} method POST,GET,DELETE, etc.
 */
 export const errorChecker = function(res,data){
-  if( (res.status === 200 && res.ok) || res.status ===201 ){
+  if( (res.status === 200 && res.ok) || res.status ===  201 ){
     return;
   }
   if (res.status === 400) {

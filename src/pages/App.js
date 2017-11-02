@@ -5,6 +5,7 @@ import Login from "./Login";
 import Logout from "./Logout";
 import Register from "./Register";
 import About from "./About";
+import NicePlaces from "./NicePlaces";
 import UserPage from "./UserPage";
 import AdminPage from "./AdminPage";
 import TopMenu from "./TopMenu";
@@ -20,6 +21,7 @@ function App() {
         <Route path="/logout" component={Logout} />
         <Route path="/register" component={Register} />
         <Route path="/about" component={About} />
+        <Route path="/niceplaces" component={NicePlaces} />
         <Route path="/user" component={UserPage} />
         <Route path="/admin" component={AdminPage} />
       </Switch>
