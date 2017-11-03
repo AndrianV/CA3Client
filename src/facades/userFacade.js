@@ -15,6 +15,7 @@ class UserStore {
     fetch(URL + "api/demouser", options)
       .then((res) => {
         resFromFirstPromise = res;
+        console.log("fetch from", "api/demouser");
         return res.json();
       }).then((data) => {
         errorChecker(resFromFirstPromise,data);

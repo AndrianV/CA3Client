@@ -21,7 +21,7 @@ function App() {
         <Route path="/logout" component={Logout} />
         <Route path="/register" component={Register} />
         <Route path="/about" component={About} />
-        <Route path="/niceplaces" component={NicePlaces} />
+        <Route path="/niceplaces/:whatToRender" component={NicePlaces} />
         <Route path="/user" component={UserPage} />
         <Route path="/admin" component={AdminPage} />
       </Switch>
