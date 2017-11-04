@@ -102,5 +102,35 @@
 }
 
 .nicePlaces {
-  padding: 10px;
+  background-color: red;
+  
+}
+
+.nicePlace {
+  background-color: orange;
+  margin-top: 15px;
+}
+
+.placeName {
+  background-color: greenyellow;
+}
+
+.placeRating {
+  background-color: blueviolet;
+}
+
+.placeAddress {
+  background-color: wheat;
+}
+
+.placeGPS {
+  background-color: rgb(53, 178, 236)
+}
+
+.placeDesc {
+  background-color: rgb(197, 92, 145);
+}
+
+img {
+  width: 100%;
 }

@@ -21,8 +21,8 @@ function App() {
         <Route path="/logout" component={Logout} />
         <Route path="/register" component={Register} />
         <Route path="/about" component={About} />
-        <Route path="/niceplaces/:whatToRender" component={NicePlaces} />
-        <Route path="/user" component={UserPage} />
+        <Route path="/niceplace/:whatToRender" component={NicePlaces} />
+        <Route path="/user/createPlace" component={UserPage} />
         <Route path="/admin" component={AdminPage} />
       </Switch>
     </div>

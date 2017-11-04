@@ -30,8 +30,8 @@ class TopMenu extends Component {
             </div>
             <ul className="nav navbar-nav">
               <li><Link to="/about">About</Link></li>
-              <li><Link to="/niceplaces/all">Browse our NicePlaces</Link></li>
-              {this.state.isUser && (<li><Link to="/user">Page for Users </Link></li>) }
+              <li><Link to="/niceplace/all">Browse our NicePlaces</Link></li>
+              {this.state.isUser && (<li><Link to="/user/createPlace">Create NicePlace</Link></li>) }
               {this.state.isAdmin && (<li><Link to="/admin">Page for Admins</Link></li>) }
             </ul>
             <ul className="nav navbar-nav navbar-right">

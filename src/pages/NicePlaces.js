@@ -1,49 +1,70 @@
 import React from 'react';
-import fetchHelper, {errorChecker} from '../facades/fetchHelpers';
+// import fetchHelper, { errorChecker } from '../facades/fetchHelpers';
+import { Address, PlaceDescription, GPSinfo, Image, PlaceName, Rating } from '../components/importContainers';
+import auth from '../authorization/auth';
 const URL = require("../../package.json").serverURL;
+
 
 export default class NicePlaces extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { placeInfo: "empty", whatToRender: this.props.match.params.whatToRender }
+        this.state = { placeInfo: [], whatToRender: this.props.match.params.whatToRender, userItself: { username: "unauthorized" } };
     }
-    componentWillMount() {
-        this.getAllPlacesUnauthorized();
+    componentDidMount() {
+        this.getAllPlaces();
     }
 
-    getAllPlacesUnauthorized = (cb) => {
-        const options = {method: "GET", headers: {"Content-Type": "application/json"} }
+    getAllPlaces = (cb) => {
+        let userItself = this.state.userItself;
+        console.log("Is the user logged in? : ", auth.isloggedIn);
+        if (auth.isloggedIn) {
+            userItself.username = auth.userName;
+            this.setState({ userItself: userItself });
+        }
+        console.log("USER NAME from auth: ", auth.userName);
+        console.log("User Name from State: ", this.state.userItself.username);
+
+        const options = {
+            method: "POST",
+            body: JSON.stringify(this.state.userItself),
+            headers: { "Content-Type": "application/json" }
+        }
+
         fetch(URL + "api/niceplace/all", options)
-          .then((res) => {
-            return res.json();
-          }).then((data) => {
-            
-            this.setState({ data1: data[0].lName });
-          }).catch(err => {
-            console.log(JSON.stringify(err));
-          })
-      }
+            .then((res) => {
+                return res.json();
+            }).then((data) => {
+                let pInfo = data.map(place => {
+                    return (
+                        <div key={place.locationName} className="row nicePlace">
+                            <Image pIMG={place.imgURL} />
+                            <PlaceName pName={place.locationName} />
+                            <Rating pRating={place.rating} />
+                            <Address pStreet={place.street} pCity={place.city}  pZIP={place.zipCode} pCountry={place.country}/> {/* Passed like address object */}
+                            <GPSinfo pGPSlat={place.gpsLat} pGPSlong={place.gpsLong} />
+                            <PlaceDescription pDesc={place.description} />
+                        </div>
+                    )
+                });
+                this.setState({ placeInfo: pInfo });
+            }).catch(err => {
+                console.log(JSON.stringify(err));
+            })
+    }
 
 
     render() {
         return (
             <div>
                 <h2>All Nice Places</h2>
-                <div className="nicePlaces">
-                    <div>Image</div>
-                    <div>Place Name</div>
-                    <div>Rating</div>
-                    <div>Address</div>
-                    <div>GPS Location</div>
-                    <div>Description</div>
+                <div className="container-fluid nicePlaces">
+                    {this.state.placeInfo}
                 </div>
                 {this.state.data1 && (
                     <div className="alert alert-danger errmsg-left" role="alert">
                         {this.state.data1}
                     </div>
                 )}
-
-
             </div>
         );
     }

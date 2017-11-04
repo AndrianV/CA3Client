@@ -3,42 +3,52 @@ import userData from "../facades/userFacade";
 
 class UserPage extends Component {
 
-    constructor(){
-      super();
-      this.state = {data: "", err:""}
-    }
-
-    componentWillMount() {
-      /*
-      This will fetch data each time you navigate to this route
-      If only required once, add "logic" to determine when data should be "refetched"
-      */
-      userData.getData((e,data)=>{
-        if(e){
-          return this.setState({err:e.err})
-        }
-        this.setState({err:"",data});
-      });
-    }
-    render() {
-      return (
-        <div>
-          <h2>Users</h2>
-          <p>This message is fetched from the server if you are properly logged in</p>
-          
-          <div className="msgFromServer">
-            {this.state.data}  
-          </div>
-          { this.state.err && ( 
-            <div className="alert alert-danger errmsg-left" role="alert"> 
-              {this.state.err}
-            </div>
-          )}
-         
-        </div>
-      )
-    }
-
+  constructor() {
+    super();
+    this.state = { newPlace: { placeName: "", street: "", city: "", zipCode: 0, country: ""} };
   }
+
+  componentWillMount() {
+   
+  }
+
+  onChange = (e) => {
+    const propertyName = e.target.id;
+    const value = e.target.value;
+    let newPlace = this.state.newPlace;
+    newPlace[propertyName] = value;
+    this.setState({ newPlace });
+  }
+
+
+  render() {
+    return (
+      <div className="container">
+        <form className="form-signin" onSubmit={this.handleSubmit}>
+          <h3 className="form-signin-heading">Create a NicePlace</h3>
+          <p>Please fill in the necessary information:</p>
+          <label htmlFor="placeName" className="sr-only">Place Name</label>
+          <input type="text" value={this.state.placeName} onChange={this.onChange} id="placeName" className="form-control" placeholder="Give it a catchy name ;)" required autoFocus />
+          <label htmlFor="street" className="sr-only">Street</label>
+          <input type="text" value={this.state.street} onChange={this.onChange} id="street" className="form-control" placeholder="Street" required />
+          <label htmlFor="city" className="sr-only">City</label>
+          <input type="text" value={this.state.city} onChange={this.onChange} id="city" className="form-control" placeholder="City" required />
+          <label htmlFor="zip" className="sr-only">ZIP Code</label>
+          <input type="text" value={this.state.zipCode} onChange={this.onChange} id="zip" className="form-control" placeholder="ZIP Code (e.g. 2810)" required />
+          <label htmlFor="coutry" className="sr-only">Coutry</label>
+          <input type="text" value={this.state.country} onChange={this.onChange} id="coutry" className="form-control" placeholder="Coutry" required />
+          <button className="btn btn-lg btn-primary btn-block" type="submit"><span className="glyphicon glyphicon-floppy-disk"></span> Create it</button>
+          <br />
+        </form>
+        {this.state.err && (
+          <div className="alert alert-danger errmsg" role="alert">
+            {this.state.err}
+          </div>
+        )}
+      </div>
+    )
+  }
+
+}
 
 export default UserPage;
